@@ -1,0 +1,9 @@
+project:
+  output-dir: _docs
+
+website:
+  title: "perceptnetfastai"
+  site-url: "https://Jorgvt.github.io/perceptnetfastai"
+  description: "PercepNet project but using FastAI."
+  repo-branch: main
+  repo-url: "https://github.com/Jorgvt/perceptnetfastai"

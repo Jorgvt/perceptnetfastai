@@ -1,0 +1,30 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "perceptnetfastai",
+    "section": "",
+    "text": "This file will become your README and also the index of your documentation."
+  },
+  {
+    "objectID": "index.html#install",
+    "href": "index.html#install",
+    "title": "perceptnetfastai",
+    "section": "Install",
+    "text": "Install\npip install perceptnetfastai"
+  },
+  {
+    "objectID": "index.html#how-to-use",
+    "href": "index.html#how-to-use",
+    "title": "perceptnetfastai",
+    "section": "How to use",
+    "text": "How to use\nFill me in please! Don’t forget code examples:\n\n1+1\n\n2"
+  },
+  {
+    "objectID": "00_Data/data_loading.html",
+    "href": "00_Data/data_loading.html",
+    "title": "Loading the data",
+    "section": "",
+    "text": "Another important thing to note is that each distorted image is named in a meaningful way: I(img_id)_(dist_id)_(dist_int).bmp, so we may use that information at our discretion. Leaving complicated filterings aside, we can start by loading all the images and connecting them.\nWe will start by loading the mos_with_names.txt file defining our DataBlock:\n\ndf = pd.read_csv(path_txt, header=None, sep=\" \", names=[\"MOS\", \"Dist\"])\ndf.head()\n\n\n\n\n\n  \n    \n      \n      MOS\n      Dist\n    \n  \n  \n    \n      0\n      5.9706\n      i01_01_1.bmp\n    \n    \n      1\n      5.4167\n      i01_01_2.bmp\n    \n    \n      2\n      4.5556\n      i01_01_3.bmp\n    \n    \n      3\n      4.3143\n      i01_01_4.bmp\n    \n    \n      4\n      6.1429\n      i01_02_1.bmp\n    \n  \n\n\n\n\n\n\n\n\n\n\nWarning\n\n\n\nTurns out that the filenames in the .txt file are lowercase but the filenames of the images are uppercase. Because we can’t modify any of those to avoid breaking other’s people code, we have to uppercase the initial I of the image names in the loaded dataframe.\n\n\n\ndf['Dist'] = df.Dist.apply(fix_dist_name)\ndf.head()\n\n\n\n\n\n  \n    \n      \n      MOS\n      Dist\n    \n  \n  \n    \n      0\n      5.9706\n      I01_01_1.bmp\n    \n    \n      1\n      5.4167\n      I01_01_2.bmp\n    \n    \n      2\n      4.5556\n      I01_01_3.bmp\n    \n    \n      3\n      4.3143\n      I01_01_4.bmp\n    \n    \n      4\n      6.1429\n      I01_02_1.bmp\n    \n  \n\n\n\n\nTo avoid unnecessary hustle, we can a column to our dataframe that points to the corresponding reference_image and we should be good to go. Keep in mind that, as we should be expecting this far in, reference images are all in uppercase format (extension included), so we’ll have to adjust consequently.\n\na = \"I01_01_1.bmp\"\nassert get_ref_name(a) == 'I01.BMP'\n\n\ndf['Ref'] = df.Dist.apply(get_ref_name)\ndf.head()\n\n\n\n\n\n  \n    \n      \n      MOS\n      Dist\n      Ref\n    \n  \n  \n    \n      0\n      5.9706\n      I01_01_1.bmp\n      I01.BMP\n    \n    \n      1\n      5.4167\n      I01_01_2.bmp\n      I01.BMP\n    \n    \n      2\n      4.5556\n      I01_01_3.bmp\n      I01.BMP\n    \n    \n      3\n      4.3143\n      I01_01_4.bmp\n      I01.BMP\n    \n    \n      4\n      6.1429\n      I01_02_1.bmp\n      I01.BMP\n    \n  \n\n\n\n\n\ndblock = DataBlock(blocks=(ImageBlock, ImageBlock, RegressionBlock),\n                   getters=[ColReader(2, pref=path_ref),\n                            ColReader(1, pref=path_dist),\n                            ColReader(0)],\n                   n_inp=2)\n\n\ndls = dblock.dataloaders(df, bs=4)\n\nWe have a kind of “complicated” data with two input images and one output, so we can’t use the base .show_batch() method right away. Instead, we can iterate over the DataLoader by hand to plot the data:\n\nfor img_ref, img_dist, mos in dls.train:\n    break\n\n\nfig, axes = plt.subplots(4,2, figsize=(4,6))\n\nfor i in range(len(axes)):\n    axes[i,0].imshow(img_ref[i].permute(1,2,0))\n    axes[i,0].set_title(\"Reference\")\n    axes[i,1].imshow(img_dist[i].permute(1,2,0))\n    axes[i,1].set_title(f\"Distorted (MOS={mos[i]:.2f})\")\n\nfor ax in axes.ravel(): ax.axis('off')\n\nplt.show()"
+  }
+]
