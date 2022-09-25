@@ -5,3 +5,6 @@ website:
       - section: Data
         contents:
           - 00_Data/00_00_data_loading.ipynb
+      - section: Model
+        contents:
+          - 01_Model/01_00_perceptnet.ipynb

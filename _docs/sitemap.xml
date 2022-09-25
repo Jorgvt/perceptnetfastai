@@ -2,10 +2,14 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://Jorgvt.github.io/perceptnetfastai/index.html</loc>
-    <lastmod>2022-09-22T19:50:21.826Z</lastmod>
+    <lastmod>2022-09-25T18:49:45.461Z</lastmod>
   </url>
   <url>
     <loc>https://Jorgvt.github.io/perceptnetfastai/00_Data/data_loading.html</loc>
-    <lastmod>2022-09-22T19:50:22.570Z</lastmod>
+    <lastmod>2022-09-25T18:49:46.077Z</lastmod>
+  </url>
+  <url>
+    <loc>https://Jorgvt.github.io/perceptnetfastai/01_Model/perceptnet.html</loc>
+    <lastmod>2022-09-25T18:49:46.709Z</lastmod>
   </url>
 </urlset>

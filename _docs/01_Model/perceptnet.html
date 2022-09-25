@@ -6,9 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="description" content="First comes first: data really is all you need.">
+<meta name="description" content="Defining base PerceptNet easy and quick.">
 
-<title>perceptnetfastai - Loading the data</title>
+<title>perceptnetfastai - Basic PerceptNet</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -128,11 +128,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 
 <link rel="stylesheet" href="../styles.css">
-<meta property="og:title" content="perceptnetfastai - Loading the data">
-<meta property="og:description" content="First comes first: data really is all you need.">
+<meta property="og:title" content="perceptnetfastai - Basic PerceptNet">
+<meta property="og:description" content="Defining base PerceptNet easy and quick.">
 <meta property="og:site-name" content="perceptnetfastai">
-<meta name="twitter:title" content="perceptnetfastai - Loading the data">
-<meta name="twitter:description" content="First comes first: data really is all you need.">
+<meta name="twitter:title" content="perceptnetfastai - Basic PerceptNet">
+<meta name="twitter:description" content="Defining base PerceptNet easy and quick.">
 <meta name="twitter:card" content="summary">
 </head>
 
@@ -152,7 +152,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     </nav>
   <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
     <div class="container-fluid d-flex justify-content-between">
-      <h1 class="quarto-secondary-nav-title">Loading the data</h1>
+      <h1 class="quarto-secondary-nav-title">Basic PerceptNet</h1>
       <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
         <i class="bi bi-chevron-right"></i>
       </button>
@@ -180,7 +180,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../00_Data/data_loading.html" class="sidebar-item-text sidebar-link active">Loading the data</a>
+  <a href="../00_Data/data_loading.html" class="sidebar-item-text sidebar-link">Loading the data</a>
   </div>
 </li>
       </ul>
@@ -195,7 +195,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../01_Model/perceptnet.html" class="sidebar-item-text sidebar-link">Basic PerceptNet</a>
+  <a href="../01_Model/perceptnet.html" class="sidebar-item-text sidebar-link active">Basic PerceptNet</a>
   </div>
 </li>
       </ul>
@@ -205,19 +205,37 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </nav>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#gdn" id="toc-gdn" class="nav-link active" data-scroll-target="#gdn">GDN</a>
+  <ul class="collapse">
+  <li><a href="#gdn-1" id="toc-gdn-1" class="nav-link" data-scroll-target="#gdn-1">GDN</a></li>
+  </ul></li>
+  <li><a href="#model" id="toc-model" class="nav-link" data-scroll-target="#model">Model</a>
+  <ul class="collapse">
+  <li><a href="#perceptnet" id="toc-perceptnet" class="nav-link" data-scroll-target="#perceptnet">PerceptNet</a></li>
+  </ul></li>
+  <li><a href="#loss-function" id="toc-loss-function" class="nav-link" data-scroll-target="#loss-function">Loss function</a>
+  <ul class="collapse">
+  <li><a href="#loss_perceptnet_fn" id="toc-loss_perceptnet_fn" class="nav-link" data-scroll-target="#loss_perceptnet_fn">loss_perceptnet_fn</a></li>
+  </ul></li>
+  <li><a href="#testing-with-fastai" id="toc-testing-with-fastai" class="nav-link" data-scroll-target="#testing-with-fastai">Testing with FastAI</a></li>
+  </ul>
+<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/Jorgvt/perceptnetfastai/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title d-none d-lg-block">Loading the data</h1>
+<h1 class="title d-none d-lg-block">Basic PerceptNet</h1>
 </div>
 
 <div>
   <div class="description">
-    First comes first: data <strong>really</strong> is all you need.
+    Defining base PerceptNet easy and quick.
   </div>
 </div>
 
@@ -232,122 +250,229 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </header>
 
 <!-- WARNING: THIS FILE WAS AUTOGENERATED! DO NOT EDIT! -->
-<p>TID2008 is already present on our server, but one may find it a little bit confusing to load: there is a <code>mos_with_names.txt</code> file that connects each distorted image with its MOS, the reference images are in the <code>reference_images</code> foldes, and the distorted images are in the <code>distorted_images</code> folder. This means that we will have to load both folders and connect the corresponding images with the <code>mos_with_names.txt</code> file.</p>
-<p>Another important thing to note is that each distorted image is named in a meaningful way: <code>I(img_id)_(dist_id)_(dist_int).bmp</code>, so we may use that information at our discretion. Leaving complicated filterings aside, we can start by loading all the images and connecting them.</p>
-<p>We will start by loading the <code>mos_with_names.txt</code> file defining our <code>DataBlock</code>:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_csv(path_txt, header<span class="op">=</span><span class="va">None</span>, sep<span class="op">=</span><span class="st">" "</span>, names<span class="op">=</span>[<span class="st">"MOS"</span>, <span class="st">"Dist"</span>])</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>df.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display">
-
-<div>
-
-<table class="dataframe table table-sm table-striped">
-  <thead>
-    <tr>
-      <th></th>
-      <th>MOS</th>
-      <th>Dist</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>5.9706</td>
-      <td>i01_01_1.bmp</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>5.4167</td>
-      <td>i01_01_2.bmp</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>4.5556</td>
-      <td>i01_01_3.bmp</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>4.3143</td>
-      <td>i01_01_4.bmp</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>6.1429</td>
-      <td>i01_02_1.bmp</td>
-    </tr>
-  </tbody>
+<section id="gdn" class="level2">
+<h2 class="anchored" data-anchor-id="gdn">GDN</h2>
+<blockquote class="blockquote">
+<p>Custom non-linear layer performing a somewhat-normalization of the input images taking into account local neighborhoods.</p>
+</blockquote>
+<hr>
+<section id="gdn-1" class="level3">
+<h3 class="anchored" data-anchor-id="gdn-1">GDN</h3>
+<blockquote class="blockquote">
+<pre><code> GDN (in_channels, out_channels, kernel_size=3, gamma_init=0.1,
+      alpha_init=2, epsilon_init=0.5, alpha_trainable=False,
+      epsilon_trainable=False, reparam_offset=3.814697265625e-06,
+      beta_min=1e-06, apply_independently=False,
+      kernel_initializer='identity', data_format='channels_first',
+      **kwargs)</code></pre>
+</blockquote>
+<p>GDN custom layer.</p>
+<table class="table">
+<colgroup>
+<col style="width: 6%">
+<col style="width: 25%">
+<col style="width: 34%">
+<col style="width: 34%">
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th><strong>Type</strong></th>
+<th><strong>Default</strong></th>
+<th><strong>Details</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>in_channels</td>
+<td></td>
+<td></td>
+<td>Number of channels at input.</td>
+</tr>
+<tr class="even">
+<td>out_channels</td>
+<td></td>
+<td></td>
+<td>Number of channels at output.</td>
+</tr>
+<tr class="odd">
+<td>kernel_size</td>
+<td>int</td>
+<td>3</td>
+<td>Kernel of the convolution.</td>
+</tr>
+<tr class="even">
+<td>gamma_init</td>
+<td>float</td>
+<td>0.1</td>
+<td>Gamma parameter.</td>
+</tr>
+<tr class="odd">
+<td>alpha_init</td>
+<td>int</td>
+<td>2</td>
+<td>Initial value of alpha.</td>
+</tr>
+<tr class="even">
+<td>epsilon_init</td>
+<td>float</td>
+<td>0.5</td>
+<td>Initial value of epsilon.</td>
+</tr>
+<tr class="odd">
+<td>alpha_trainable</td>
+<td>bool</td>
+<td>False</td>
+<td>Wether alpha is a trainable parameter.</td>
+</tr>
+<tr class="even">
+<td>epsilon_trainable</td>
+<td>bool</td>
+<td>False</td>
+<td>Wether epsilon is a trainable parameter.</td>
+</tr>
+<tr class="odd">
+<td>reparam_offset</td>
+<td>float</td>
+<td>3.814697265625e-06</td>
+<td>Numerical stability trick.</td>
+</tr>
+<tr class="even">
+<td>beta_min</td>
+<td>float</td>
+<td>1e-06</td>
+<td>Minimum value of beta.</td>
+</tr>
+<tr class="odd">
+<td>apply_independently</td>
+<td>bool</td>
+<td>False</td>
+<td>Wether to do grouped convolutions or not.</td>
+</tr>
+<tr class="even">
+<td>kernel_initializer</td>
+<td>str</td>
+<td>identity</td>
+<td>Initialization of the convolution kernel.</td>
+</tr>
+<tr class="odd">
+<td>data_format</td>
+<td>str</td>
+<td>channels_first</td>
+<td>Format of the input data.</td>
+</tr>
+<tr class="even">
+<td>kwargs</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
 </table>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>gdn <span class="op">=</span> GDN(in_channels<span class="op">=</span><span class="dv">3</span>, out_channels<span class="op">=</span><span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</div>
-</div>
-<div class="callout-warning callout callout-style-default callout-captioned">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-caption-container flex-fill">
-Warning
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Turns out that the filenames in the <code>.txt</code> file are lowercase but the filenames of the images are uppercase. Because we can’t modify any of those to avoid breaking other’s people code, we have to uppercase the <strong>initial I</strong> of the image names in the loaded dataframe.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>input_sample <span class="op">=</span> torch.rand(size<span class="op">=</span>(<span class="dv">1</span>,<span class="dv">3</span>,<span class="dv">28</span>,<span class="dv">28</span>))</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>output_sample <span class="op">=</span> gdn(input_sample).detach()</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> input_sample.shape <span class="op">==</span> output_sample.shape</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>[W NNPACK.cpp:79] Could not initialize NNPACK! Reason: Unsupported hardware.</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'Dist'</span>] <span class="op">=</span> df.Dist.<span class="bu">apply</span>(fix_dist_name)</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>df.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>fig, axes <span class="op">=</span> plt.subplots(<span class="dv">1</span>,<span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">9</span>,<span class="dv">4</span>))</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].imshow(input_sample.squeeze().permute(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">0</span>))</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].imshow(output_sample.squeeze().permute(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">0</span>))</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> ax <span class="kw">in</span> axes: ax.axis(<span class="st">"off"</span>)</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
-
-<div>
-
-<table class="dataframe table table-sm table-striped">
-  <thead>
-    <tr>
-      <th></th>
-      <th>MOS</th>
-      <th>Dist</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>5.9706</td>
-      <td>I01_01_1.bmp</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>5.4167</td>
-      <td>I01_01_2.bmp</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>4.5556</td>
-      <td>I01_01_3.bmp</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>4.3143</td>
-      <td>I01_01_4.bmp</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>6.1429</td>
-      <td>I01_02_1.bmp</td>
-    </tr>
-  </tbody>
+<p><img src="01_00_perceptnet_files/figure-html/cell-5-output-1.png" class="img-fluid"></p>
+</div>
+</div>
+</section>
+</section>
+<section id="model" class="level2">
+<h2 class="anchored" data-anchor-id="model">Model</h2>
+<blockquote class="blockquote">
+<p>Definition of the model.</p>
+</blockquote>
+<hr>
+<section id="perceptnet" class="level3">
+<h3 class="anchored" data-anchor-id="perceptnet">PerceptNet</h3>
+<blockquote class="blockquote">
+<pre><code> PerceptNet (in_channels)</code></pre>
+</blockquote>
+<p>Basic PerceptNet architecture.</p>
+<table class="table">
+<thead>
+<tr class="header">
+<th></th>
+<th><strong>Details</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>in_channels</td>
+<td>Input channels.</td>
+</tr>
+</tbody>
 </table>
-</div>
-</div>
-</div>
-<p>To avoid unnecessary hustle, we can a column to our dataframe that points to the corresponding <code>reference_image</code> and we should be good to go. Keep in mind that, as we should be expecting this far in, reference images are all in uppercase format (extension included), so we’ll have to adjust consequently.</p>
+</section>
+</section>
+<section id="loss-function" class="level2">
+<h2 class="anchored" data-anchor-id="loss-function">Loss function</h2>
+<blockquote class="blockquote">
+<p>The model is going to be trained to maximize the correlation between the distance in the transformed space and the MOS.</p>
+</blockquote>
+<hr>
+<section id="loss_perceptnet_fn" class="level3">
+<h3 class="anchored" data-anchor-id="loss_perceptnet_fn">loss_perceptnet_fn</h3>
+<blockquote class="blockquote">
+<pre><code> loss_perceptnet_fn (imgs, mos)</code></pre>
+</blockquote>
+<table class="table">
+<thead>
+<tr class="header">
+<th></th>
+<th><strong>Details</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>imgs</td>
+<td>Tuple of (ref_imgs, dist_imgs) in the transformed space.</td>
+</tr>
+<tr class="even">
+<td>mos</td>
+<td>Real Mean Opinion Score</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="testing-with-fastai" class="level2">
+<h2 class="anchored" data-anchor-id="testing-with-fastai">Testing with FastAI</h2>
+<blockquote class="blockquote">
+<p>We want to train the model using <code>fastai</code>, so we have to make sure that we can use it with the library.</p>
+</blockquote>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> <span class="st">"I01_01_1.bmp"</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> get_ref_name(a) <span class="op">==</span> <span class="st">'I01.BMP'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> fastai.vision.<span class="bu">all</span> <span class="im">import</span> <span class="op">*</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> functools <span class="im">import</span> partial</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'Ref'</span>] <span class="op">=</span> df.Dist.<span class="bu">apply</span>(get_ref_name)</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>df.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>dblock <span class="op">=</span> DataBlock(blocks<span class="op">=</span>(ImageBlock, ImageBlock, RegressionBlock),</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>                   getters<span class="op">=</span>[ColReader(<span class="dv">2</span>, pref<span class="op">=</span>path_ref),</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>                            ColReader(<span class="dv">1</span>, pref<span class="op">=</span>path_dist),</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>                            ColReader(<span class="dv">0</span>)],</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>                   n_inp<span class="op">=</span><span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_csv(<span class="st">"../tid2008.csv"</span>, index_col<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>df.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 
 <div>
@@ -397,43 +522,32 @@ Warning
 </div>
 </div>
 </div>
-<p>We will be saving the generated <code>.csv</code> to skip this step further:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>df.to_csv(<span class="st">"../tid2008.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>dls <span class="op">=</span> dblock.dataloaders(df, bs<span class="op">=</span><span class="dv">32</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>dblock <span class="op">=</span> DataBlock(blocks<span class="op">=</span>(ImageBlock, ImageBlock, RegressionBlock),</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>                   getters<span class="op">=</span>[ColReader(<span class="dv">2</span>, pref<span class="op">=</span>path_ref),</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>                            ColReader(<span class="dv">1</span>, pref<span class="op">=</span>path_dist),</span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>                            ColReader(<span class="dv">0</span>)],</span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>                   n_inp<span class="op">=</span><span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>learn <span class="op">=</span> Learner(dls<span class="op">=</span>dls,</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>                model<span class="op">=</span>PerceptNet(in_channels<span class="op">=</span><span class="dv">3</span>),</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>                loss_func<span class="op">=</span>loss_perceptnet_fn)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>dls <span class="op">=</span> dblock.dataloaders(df, bs<span class="op">=</span><span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>We have a kind of “complicated” data with two input images and one output, so we can’t use the base <code>.show_batch()</code> method right away. Instead, we can iterate over the <code>DataLoader</code> by hand to plot the data:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> img_ref, img_dist, mos <span class="kw">in</span> dls.train:</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">break</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>fig, axes <span class="op">=</span> plt.subplots(<span class="dv">4</span>,<span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">4</span>,<span class="dv">6</span>))</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(axes)):</span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>    axes[i,<span class="dv">0</span>].imshow(img_ref[i].permute(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">0</span>))</span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>    axes[i,<span class="dv">0</span>].set_title(<span class="st">"Reference"</span>)</span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>    axes[i,<span class="dv">1</span>].imshow(img_dist[i].permute(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">0</span>))</span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>    axes[i,<span class="dv">1</span>].set_title(<span class="ss">f"Distorted (MOS=</span><span class="sc">{</span>mos[i]<span class="sc">:.2f}</span><span class="ss">)"</span>)</span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> ax <span class="kw">in</span> axes.ravel(): ax.axis(<span class="st">'off'</span>)</span>
-<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>lr <span class="op">=</span> learn.lr_find()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
-<p><img src="00_00_data_loading_files/figure-html/cell-10-output-1.png" class="img-fluid"></p>
+
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="01_00_perceptnet_files/figure-html/cell-13-output-2.png" class="img-fluid"></p>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>lr</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>SuggestedLRs(valley=0.0014454397605732083)</code></pre>
 </div>
 </div>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
